@@ -10,6 +10,7 @@ import ClerksLayout from "./layout/ClerksLayout";
 import Home from "./pages/admin/Home";
 import C_Home from "./pages/clerks/C_Home";
 import { Toaster } from "react-hot-toast";
+import C_createActivity from "./pages/clerks/C_createActivity";
 
 const App = () => {
   return (
@@ -35,6 +36,8 @@ const App = () => {
           <Route path="user" element={<UserLayout />}></Route>
           <Route path="clerk" element={<ClerksLayout />}>
             <Route index element={<C_Home />} />
+            <Route path="create-activity" element={<C_createActivity />} />
+
           </Route>
         </Route>
       </Routes>

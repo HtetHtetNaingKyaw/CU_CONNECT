@@ -1,7 +1,6 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { register, verifyLogin } from "../api/auth";
+import {  useQuery } from "@tanstack/react-query";
+import {  verifyLogin } from "../api/auth";
 import { keys } from "./key";
-import { RegisterFormData } from "./type";
 
 export const useVerifyLogin = () => {
   return useQuery({
@@ -10,9 +9,3 @@ export const useVerifyLogin = () => {
   });
 };
 
-export const useRegister = () => {
-  return useMutation({
-    mutationFn: ({ email, name, rollNumber }: RegisterFormData) =>
-      register(email, name, rollNumber),
-  });
-};

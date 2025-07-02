@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthContextType, useAuth } from "../context/AuthContext";
+import C_sideBar from "../components/C_sideBar";
 
 const ClerksLayout = () => {
   const { role } = useAuth() as AuthContextType;
@@ -10,10 +11,10 @@ const ClerksLayout = () => {
 
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-3 bg-base-200 ">
-        <div className="text-3xl p-3 border-b-2 border-b-primary">Clerk</div>
+      <div className="md:block col-span-3 hidden bg-base-200 h-screen">
+        <C_sideBar />
       </div>
-      <div className="col-span-9 bg-base-300">
+      <div className="md:col-span-9 col-span-12 h-screen overflow-y-scroll">
         <Outlet />
       </div>
     </div>

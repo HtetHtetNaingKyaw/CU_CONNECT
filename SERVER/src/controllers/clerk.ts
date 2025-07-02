@@ -5,10 +5,11 @@ import { InputFile } from "node-appwrite/file";
 import prisma from "../prismaClient";
 import jwt from "jsonwebtoken";
 
-//clerk register 
+//clerk register
 export const register = async (req: Request, res: Response) => {
   const { email, name, rollNumber } = req.body;
-  console.log(name,email,rollNumber)
+
+  console.log(name, email, rollNumber);
   try {
     if (!email || !name || !rollNumber) {
       res.status(400).json({ message: "fill all the data!" });
@@ -59,6 +60,7 @@ export const uploadActivityImage = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { image } = (req.files as any) || { image: undefined };
+    console.log(image)
 
     if (!image) {
       res.status(404).json({ message: "No image Found!" });
@@ -78,7 +80,7 @@ export const uploadActivityImage = async (req: Request, res: Response) => {
       InputFile.fromBuffer(img.data, img.name)
     );
 
-    const imageData = imageFiles.map((file: any) =>
+    const uploadImageToAppwrite = imageFiles.map((file: any) =>
       appwriteStorage.createFile(
         process.env.CU_CONNECT_APPWRITE_ACTIVITY_IMAGE_BUCKET_ID as string,
         ID.unique(),
@@ -86,7 +88,7 @@ export const uploadActivityImage = async (req: Request, res: Response) => {
       )
     );
 
-    const uploadedFiles = await Promise.all(imageData);
+    const uploadedFiles = await Promise.all(uploadImageToAppwrite);
 
     const imgId = uploadedFiles.map((img) => {
       return img.$id;
@@ -117,26 +119,26 @@ export const uploadActivityImage = async (req: Request, res: Response) => {
 export const createActivity = async (req: Request, res: Response) => {
   try {
     const { title, content } = req.body;
-    const { token } = req.cookies;
+    const { user } = req as any;
 
     if (!title || !content) {
       res.status(400).json({ message: "Fill all data!" });
     }
 
-    const { role, id } = jwt.decode(token) as {
-      id: string;
-      role: "USER" | "ADMIN" | "CLERK" | "TEACHER";
-      iat: number;
-      exp: number;
-    };
+    // const { role, id } = jwt.decode(token) as {
+    //   id: string;
+    //   role: "USER" | "ADMIN" | "CLERK" | "TEACHER";
+    //   iat: number;
+    //   exp: number;
+    // };
 
-    console.log("clerk is", id, role);
+    console.log("clerk is", user.id, user.role);
 
     const activity = await prisma.activity.create({
       data: {
         title,
         content,
-        clerkId: id,
+        clerkId: user.id,
       },
     });
     res.status(200).json({ message: "Ok!", activity });

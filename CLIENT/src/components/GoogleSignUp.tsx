@@ -3,7 +3,7 @@ const GoogleSignUp = () => {
     <>
       {/* Google */}
       <button
-        className="btn bg-white text-black border-[#e5e5e5] ms-2"
+        className="btn bg-white text-black ms-2"
         onClick={() => {
           window.location.href =
             import.meta.env.VITE_API_URL + "/api/auth/google";

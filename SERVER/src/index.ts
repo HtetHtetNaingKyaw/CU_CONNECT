@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import { clerkRoute } from "./routes/clerk";
 import { urlencoded } from "express";
 import fileUpload from "express-fileupload";
+
+
 const app = express();
 
 app.use(express.json());
@@ -21,8 +23,8 @@ app.use(
 app.use(cookieParser());
 
 app.use("/api/auth", authRoute); //localhost:3000/api/activity/create-activity
-app.use("/api/activity", clerkRoute);
-// app.use("/api/products", productRoute);
+app.use("/api/clerk", clerkRoute);
+// app.use("/api/products", productRoute)
 
 app.listen(3000, () => {
   console.log(`app is running on port 3000`);

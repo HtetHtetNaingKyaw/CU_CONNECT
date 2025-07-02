@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useRegister } from "../../react-query/auth";
 import toast from "react-hot-toast";
+import { useRegister } from "../../react-query/clerk";
 
 const schema = yup.object().shape({
   name: yup
@@ -45,7 +45,7 @@ const C_Home = () => {
         >
           <input
             type="email"
-            className="input input-primary input-lg max-w-none"
+            className="input input-secondary input-lg max-w-none"
             placeholder="Email"
             {...formRegister("email")}
           />
@@ -55,7 +55,7 @@ const C_Home = () => {
 
           <input
             type="text"
-            className="input input-primary input-lg max-w-none"
+            className="input input-secondary input-lg max-w-none"
             placeholder="Name"
             {...formRegister("name")}
           />
@@ -63,7 +63,7 @@ const C_Home = () => {
 
           <input
             type="text"
-            className="input input-primary input-lg max-w-none"
+            className="input input-secondary input-lg max-w-none"
             placeholder="Roll Number"
             {...formRegister("rollNumber")}
           />
@@ -72,7 +72,7 @@ const C_Home = () => {
           )}
 
           <button
-            className="btn btn-primary"
+            className="btn btn-secondary"
             type="submit"
             disabled={isPending}
           >
